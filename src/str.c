@@ -38,6 +38,27 @@ str str_static(str s) {
     return strings[ret];
 }
 
+str_view str_cut(str dst, int offset, int len) {
+    str_view ret = {
+        .start = dst + offset,
+        .len = len
+    };
+    return ret;
+}
+
+
+int compare_str_view(str_view a, str_view b) {
+    for(int i = 0; i < a.len && i < b.len; i++){
+        if(a.start[i] < b.start[i]){
+            return -1;
+        } else if(a.start[i] > b.start[i]){
+            return 1;
+        }
+    }
+    return a.len - b.len;
+}
+
+
 int sort_as_str(const void* a, const void* b) {
     return strcmp(*(str*)a, *(str*)b);
 }
