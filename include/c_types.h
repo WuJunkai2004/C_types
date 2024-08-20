@@ -11,8 +11,8 @@ typedef long long int64;
 typedef unsigned long long uint64;
 
 typedef int bool;
-const bool true = 1;
-const bool false = 0;
+#define true 1
+#define false 0
 
 #ifndef __STR_HEADER__
 #include "str.h"
