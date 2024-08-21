@@ -28,5 +28,15 @@ typedef int bool;
 #include "mapping.h"
 #endif
 
+#ifndef __CONTAINER_HEADER__
+#include "container.h"
+#endif
+
+#ifdef LOAD_C_TYPES_SRC
+#include "../src/str.c"
+#include "../src/list.c"
+#include "../src/mapping.c"
+#include "../src/container.c"
+#endif
 
 #endif

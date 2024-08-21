@@ -1,7 +1,13 @@
 #ifndef __LIST_HEADER__
 #define __LIST_HEADER__
 
-
+/**
+ * @brief list struct
+ * @param length: length of list
+ * @param _capacity: capacity of list, you can't access the data directly
+ * @param _data: data of list, you can't access the data directly
+ * @param _type_size: size of type, you can't access the data directly
+*/
 typedef struct{
     int _type_size;
     int length;

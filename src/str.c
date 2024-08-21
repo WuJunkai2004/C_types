@@ -59,6 +59,13 @@ int compare_str_view(str_view a, str_view b) {
 }
 
 
+str view_to_str(str_view view) {
+    char ret[view.len + 1];
+    strncpy(ret, view.start, view.len);
+    return str_static(ret);
+}
+
+
 int sort_as_str(const void* a, const void* b) {
     return strcmp(*(str*)a, *(str*)b);
 }
