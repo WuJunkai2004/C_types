@@ -7,7 +7,7 @@
  * @param _capacity: capacity of list, you can't access the data directly
  * @param _data: data of list, you can't access the data directly
  * @param _type_size: size of type, you can't access the data directly
-*/
+ */
 typedef struct{
     int _type_size;
     int length;
@@ -21,7 +21,8 @@ void list_set_ptr(list*, int, void*);
 void*list_get_ptr(list*, int);
 void list_append_ptr(list*, void*);
 void list_erase(list*, int);
-void list_expand(list*);
+void list_enlarge(list*);
+void list_expand(list*, int);
 void list_sort(list*, int(*)(const void*, const void*));
 void list_reverse(list*);
 void list_free(list*);

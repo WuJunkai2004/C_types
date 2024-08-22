@@ -28,7 +28,7 @@ list list_create_by(int sizeof_type) {
 list list_init_by(int sizeof_type, int length, void* values) {
     list l = list_create_by(sizeof_type);
     while(l._capacity < length){
-        list_expand(&l);
+        list_enlarge(&l);
     }
     l.length = length;
     memcpy(l._data, values, sizeof_type * length);
@@ -65,7 +65,7 @@ void*list_get_ptr(list* this, int index) {
 
 void list_append_ptr(list* this, void* value) {
     if( this->length >= this->_capacity){
-        list_expand(this);
+        list_enlarge(this);
     }
     memcpy(this->_data + this->length * this->_type_size, value, this->_type_size);
     this->length++;
@@ -87,10 +87,10 @@ void list_erase(list* this, int index) {
 
 
 /**
- * @brief 扩容链表
+ * @brief 被动扩容链表
  * @param l 链表
  */
-void list_expand(list* this) {
+void list_enlarge(list* this) {
     if(this->_capacity < 64){
         this->_capacity *= 2;
     } else {
@@ -101,10 +101,24 @@ void list_expand(list* this) {
 
 
 /**
+ * @brief 主动扩容链表
+ * @param l 链表
+ * @param new_capacity 新的容量(小于当前容量则无效)
+ */
+void list_expand(list* this, int new_capacity) {
+    if(new_capacity <= this->_capacity){
+        return;
+    }
+    this->_capacity = new_capacity;
+    this->_data = realloc(this->_data, this->_type_size * this->_capacity);
+}
+
+
+/**
  * @brief 排序链表
  * @param l 链表
  * @param cmp 比较函数
-*/
+ */
 void list_sort(list* this, int(*cmp)(const void*, const void*)) {
     qsort(this->_data, this->length, this->_type_size, cmp);
 }
@@ -113,7 +127,7 @@ void list_sort(list* this, int(*cmp)(const void*, const void*)) {
 /**
  * @brief 反转链表
  * @param l 链表
-*/
+ */
 void list_reverse(list* this) {
     void* temp = malloc(this->_type_size);
     for(int i = 0; i < this->length / 2; i++){
@@ -127,7 +141,7 @@ void list_reverse(list* this) {
 /**
  * @brief 释放链表
  * @param l 链表
-*/
+ */
 void list_free(list* this) {
     free(this->_data);
 }
@@ -138,7 +152,7 @@ void list_free(list* this) {
 
 /**
  * @brief 内置排序函数
-*/
+ */
 int sort_as_int(const void* a, const void* b) {
     return *(int*)a - *(int*)b;
 }
