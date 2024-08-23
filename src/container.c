@@ -76,3 +76,12 @@ int stack_size(stack* this) {
 void stack_free(stack* this) {
     list_free(&(this->_inner_list));
 }
+
+
+/**
+ * @brief 检查是否为空
+ * @param s 栈
+ */
+int stack_is_empty(stack* this) {
+    return this->_idx < 0;
+}

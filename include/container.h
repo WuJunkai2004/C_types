@@ -19,6 +19,7 @@ void* stack_top_ptr(stack*);
 void* stack_pop_ptr(stack*);
 int   stack_size(stack*);
 void  stack_free(stack*);
+int   stack_is_empty(stack*);
 #define stack_create(type) ({stack_create_by(sizeof(type));})
 #define stack_push(s, value) ({typeof(value) _v=(value); stack_push_ptr((s), &_v);})
 #define stack_top(type, s) ({*(type*)stack_top_ptr((s));})

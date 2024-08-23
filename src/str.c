@@ -60,7 +60,7 @@ int compare_str_view(str_view a, str_view b) {
 
 
 str view_to_str(str_view view) {
-    char ret[view.len + 1];
+    char ret[view.len + 1] = {};
     strncpy(ret, view.start, view.len);
     return str_static(ret);
 }
