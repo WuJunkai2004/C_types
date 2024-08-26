@@ -18,6 +18,7 @@ void  stack_push_ptr(stack*, void*);
 void* stack_top_ptr(stack*);
 void* stack_pop_ptr(stack*);
 int   stack_size(stack*);
+void  stack_clear(stack*);
 void  stack_free(stack*);
 int   stack_is_empty(stack*);
 #define stack_create(type) ({stack_create_by(sizeof(type));})
@@ -38,6 +39,7 @@ typedef struct{
     int _front;
     int _rear;
     int _max_size;
+    int _is_smart_resize;
 } queue;
 
 #endif

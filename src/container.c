@@ -85,3 +85,14 @@ void stack_free(stack* this) {
 int stack_is_empty(stack* this) {
     return this->_idx < 0;
 }
+
+
+/**
+ * @brief 清空栈
+ * @param s 栈
+ */
+void stack_clear(stack* this) {
+    while(!stack_is_empty(this)){
+        stack_pop_ptr(this);
+    }
+}
