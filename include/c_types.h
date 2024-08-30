@@ -42,4 +42,8 @@ typedef int bool;
 #include "../src/container.c"
 #endif
 
+#ifdef LOAD_C_TYPES_ITER
+#include "iterator.h"
+#endif
+
 #endif
