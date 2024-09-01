@@ -6,7 +6,7 @@ typedef char* str;
 #define STRING_EXTRA_LIMIT 128
 #define STRING_SHORT_STD   8
 
-#define str_new(len) malloc(len+1)
+#define str_new(len) malloc(len)
 
 str str_static(str);
 
@@ -14,6 +14,9 @@ typedef struct{
     const str start;
     int len;
 } str_view;
+
+#define VIEW_TAG "%.*s"
+#define VIEW_ARG(view) view.len, view.start
 
 str_view str_cut(str, int, int);
 

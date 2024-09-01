@@ -1,7 +1,11 @@
 #ifndef __MAPPING_HEADER__
 #define __MAPPING_HEADER__
 
-
+/**
+ * @brief mapping struct
+ * @param key: key of mapping, a string
+ * @param value: value of mapping, an integer
+ */
 typedef struct{
     str key;
     int value;
@@ -21,6 +25,12 @@ void map_expand(map*);
 void map_free(map*);
 #define map_init(...) ({map_pair _m[]={__VA_ARGS__}; map_init_by(sizeof(_m)/sizeof(map_pair), _m);})
 
+
+/**
+ * @brief dictionary struct
+ * @param key: key of dictionary, a string
+ * @param value: value of dictionary, a string
+ */
 typedef struct{
     str key;
     str value;
