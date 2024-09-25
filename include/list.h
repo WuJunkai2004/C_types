@@ -34,7 +34,6 @@ void list_free(list*);
 #define list_find(l, goal) ({int _i=-1;for(int i=0; i<(l)->length; i++)if(list_get(typeof(goal), l, i)==goal){_i=i; break;}_i;})
 
 int sort_as_int(const void*, const void*);
-int sort_as_str(const void*, const void*);
 int sort_as_double(const void*, const void*);
 
 #endif
