@@ -12,7 +12,7 @@
 map map_create() {
     map d;
     d._capacity = 16;
-    d.keys = malloc(sizeof(str) * d._capacity);
+    d.keys = malloc(sizeof(char*) * d._capacity);
     for(int i = 0; i < d._capacity; i++){
         d.keys[i] = NULL;
     }
@@ -34,7 +34,7 @@ map map_init_by(int len, map_pair* data){
  * @brief 设置映射的键值对
  * @param d 映射
 */
-void map_set(map* this, str key, int value) {
+void map_set(map* this, char *key, int value) {
     int is_set = 0;
     for(int i = 0; i < this->_capacity; i++){
         if(is_set == 0 && this->keys[i] == NULL){
@@ -68,7 +68,7 @@ void map_set(map* this, str key, int value) {
  * @param key 键
  * @return int 返回键对应的值
  */
-int map_get(map* this, str key) {
+int map_get(map* this, char *key) {
     for(int i = 0; i < this->_capacity; i++){
         if(this->keys[i] == NULL){
             continue;
@@ -86,7 +86,7 @@ int map_get(map* this, str key) {
  * @param d 映射
  * @param key 键
  */
-void map_remove(map* this, str key) {
+void map_remove(map* this, char *key) {
     for(int i = 0; i < this->_capacity; i++){
         if(strcmp(this->keys[i], key) == 0){
             free(this->keys[i]);
@@ -103,7 +103,7 @@ void map_remove(map* this, str key) {
  */
 void map_expand(map* this) {
     this->_capacity += 16;
-    this->keys = realloc(this->keys, sizeof(str) * this->_capacity);
+    this->keys = realloc(this->keys, sizeof(char*) * this->_capacity);
     for(int i=this->_capacity - 16; i < this->_capacity; i++){
         this->keys[i] = NULL;
     }
@@ -154,7 +154,7 @@ dict dict_init_by(int len, dict_pair* data){
  * @brief 设置字典的键值对
  * @param d 字典
  */
-void dict_set(dict* this, str key, str value) {
+void dict_set(dict* this, char *key, char *value) {
     int is_set = 0;
     for(int i = 0; i < this->_capacity; i++){
         if(is_set == 0 && this->keys[i] == NULL){
@@ -190,9 +190,9 @@ void dict_set(dict* this, str key, str value) {
  * @brief 获取字典的值
  * @param d 字典
  * @param key 键
- * @return str 返回键对应的值
+ * @return char *返回键对应的值
  */
-str dict_get(dict* this, str key) {
+char *dict_get(dict* this, char *key) {
     for(int i = 0; i < this->_capacity; i++){
         if(this->keys[i] == NULL){
             continue;
@@ -210,7 +210,7 @@ str dict_get(dict* this, str key) {
  * @param d 字典
  * @param key 键
  */
-void dict_remove(dict* this, str key) {
+void dict_remove(dict* this, char *key) {
     for(int i = 0; i < this->_capacity; i++){
         if(strcmp(this->keys[i], key) == 0){
             free(this->keys[i]);

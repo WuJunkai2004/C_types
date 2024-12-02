@@ -7,20 +7,20 @@
  * @param value: value of mapping, an integer
  */
 typedef struct{
-    str key;
+    char *key;
     int value;
 } map_pair;
 typedef struct{
     int _capacity;
-    str *keys;
+    char* *keys;
     int *values;
 } map;
 
 map  map_create();
 map  map_init_by(int, map_pair*);
-void map_set(map*, str, int);
-int  map_get(map*, str);
-void map_remove(map*, str);
+void map_set(map*, char*, int);
+int  map_get(map*, char*);
+void map_remove(map*, char*);
 void map_expand(map*);
 void map_free(map*);
 #define map_init(...) ({map_pair _m[]={__VA_ARGS__}; map_init_by(sizeof(_m)/sizeof(map_pair), _m);})
@@ -32,19 +32,19 @@ void map_free(map*);
  * @param value: value of dictionary, a string
  */
 typedef struct{
-    str key;
-    str value;
+    char *key;
+    char *value;
 } dict_pair;
 typedef struct{
     int _capacity;
-    str *keys;
-    str *values;
+    char* *keys;
+    char* *values;
 } dict;
 
 dict dict_create();
 dict dict_init_by(int, dict_pair*);
-void dict_set(dict*, str, str);
-str  dict_get(dict*, str);
+void dict_set(dict*, char*, char*);
+char*  dict_get(dict*, str);
 void dict_remove(dict*, str);
 void dict_expand(dict*);
 void dict_free(dict*);
