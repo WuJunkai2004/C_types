@@ -81,6 +81,10 @@ void list_erase(list* this, int index) {
     if(index >= this->length || index < 0){
         return;
     }
+    if(index == this->length - 1){
+        this->length--;
+        return;
+    }
     memmove(this->_data + index * this->_type_size, this->_data + (index + 1) * this->_type_size, (this->length - index - 1) * this->_type_size);
     this->length--;
 }
