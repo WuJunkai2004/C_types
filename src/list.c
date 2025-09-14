@@ -9,10 +9,10 @@
  * @param sizeof(type) 类型的大小
  * @return list 返回创建的链表
  */
-list list_create_by(int sizeof_type) {
-    list l;
+list_t list_create_by(int sizeof_type) {
+    list_t l;
     l._type_size = sizeof_type;
-    l.length = 0;
+    l._len = 0;
     l._capacity = 8;
     l._data = malloc(sizeof_type * l._capacity);
     return l;
@@ -25,12 +25,12 @@ list list_create_by(int sizeof_type) {
  * @param length 长度
  * @param values 值
  */
-list list_init_by(int sizeof_type, int length, void* values) {
-    list l = list_create_by(sizeof_type);
+list_t list_init_by(int sizeof_type, int length, void* values) {
+    list_t l = list_create_by(sizeof_type);
     while(l._capacity < length){
         list_enlarge(&l);
     }
-    l.length = length;
+    l._len = length;
     memcpy(l._data, values, sizeof_type * length);
     return l;
 }
@@ -42,8 +42,8 @@ list list_init_by(int sizeof_type, int length, void* values) {
  * @param index 索引
  * @param value 值
  */
-void list_set_ptr(list* this, int index, void* value) {
-    if( index < 0 || index >= this->length){
+void list_set_ptr(list_t* this, int index, void* value) {
+    if( index < 0 || index >= this->_len){
         return;
     }
     memcpy(this->_data + index * this->_type_size, value, this->_type_size);
@@ -56,19 +56,19 @@ void list_set_ptr(list* this, int index, void* value) {
  * @param index 索引
  * @return void* 返回索引对应的元素
  */
-void*list_get_ptr(list* this, int index) {
+void*list_get_ptr(list_t* this, int index) {
     if( index < 0 || index >= this->_capacity){
         return NULL;
     }
     return this->_data + index * this->_type_size;
 }
 
-void list_append_ptr(list* this, void* value) {
-    if( this->length >= this->_capacity){
+void list_append_ptr(list_t* this, void* value) {
+    if( this->_len >= this->_capacity){
         list_enlarge(this);
     }
-    memcpy(this->_data + this->length * this->_type_size, value, this->_type_size);
-    this->length++;
+    memcpy(this->_data + this->_len * this->_type_size, value, this->_type_size);
+    this->_len++;
 }
 
 
@@ -77,16 +77,16 @@ void list_append_ptr(list* this, void* value) {
  * @param l 链表
  * @param index 索引
  */
-void list_erase(list* this, int index) {
-    if(index >= this->length || index < 0){
+void list_erase(list_t* this, int index) {
+    if(index >= this->_len || index < 0){
         return;
     }
-    if(index == this->length - 1){
-        this->length--;
+    if(index == this->_len - 1){
+        this->_len--;
         return;
     }
-    memmove(this->_data + index * this->_type_size, this->_data + (index + 1) * this->_type_size, (this->length - index - 1) * this->_type_size);
-    this->length--;
+    memmove(this->_data + index * this->_type_size, this->_data + (index + 1) * this->_type_size, (this->_len - index - 1) * this->_type_size);
+    this->_len--;
 }
 
 
@@ -94,7 +94,7 @@ void list_erase(list* this, int index) {
  * @brief 被动扩容链表
  * @param l 链表
  */
-void list_enlarge(list* this) {
+void list_enlarge(list_t* this) {
     if(this->_capacity < 64){
         this->_capacity *= 2;
     } else {
@@ -109,7 +109,7 @@ void list_enlarge(list* this) {
  * @param l 链表
  * @param new_capacity 新的容量(小于当前容量则无效)
  */
-void list_expand(list* this, int new_capacity) {
+void list_expand(list_t* this, int new_capacity) {
     if(new_capacity <= this->_capacity){
         return;
     }
@@ -123,8 +123,8 @@ void list_expand(list* this, int new_capacity) {
  * @param l 链表
  * @param cmp 比较函数
  */
-void list_sort(list* this, int(*cmp)(const void*, const void*)) {
-    qsort(this->_data, this->length, this->_type_size, cmp);
+void list_sort(list_t* this, int(*cmp)(const void*, const void*)) {
+    qsort(this->_data, this->_len, this->_type_size, cmp);
 }
 
 
@@ -132,12 +132,12 @@ void list_sort(list* this, int(*cmp)(const void*, const void*)) {
  * @brief 反转链表
  * @param l 链表
  */
-void list_reverse(list* this) {
+void list_reverse(list_t* this) {
     void* temp = malloc(this->_type_size);
-    for(int i = 0; i < this->length / 2; i++){
+    for(int i = 0; i < this->_len / 2; i++){
         memcpy(temp, this->_data + i * this->_type_size, this->_type_size);
-        memcpy(this->_data + i * this->_type_size, this->_data + (this->length - i - 1) * this->_type_size, this->_type_size);
-        memcpy(this->_data + (this->length - i - 1) * this->_type_size, temp, this->_type_size);
+        memcpy(this->_data + i * this->_type_size, this->_data + (this->_len - i - 1) * this->_type_size, this->_type_size);
+        memcpy(this->_data + (this->_len - i - 1) * this->_type_size, temp, this->_type_size);
     }
     free(temp);
 }
@@ -146,13 +146,18 @@ void list_reverse(list* this) {
  * @brief 释放链表
  * @param l 链表
  */
-void list_free(list* this) {
+void list_free(list_t* this) {
     free(this->_data);
 }
 
-
-
-
+/**
+ * @brief 获取链表的长度
+ * @param l 链表
+ * @return int 返回链表的长度
+ */
+int list_size(list_t* this) {
+    return this->_len;
+}
 
 /**
  * @brief 内置排序函数

@@ -9,7 +9,7 @@
  * @param _idx: index of stack, you can't access the data directly
  */
 typedef struct{
-    list _inner_list;
+    list_t _inner_list;
     int _idx;
 } stack_t;
 

@@ -26,7 +26,7 @@ stack_t stack_create_by(int sizeof_type) {
  */
 void stack_push_ptr(stack_t* this, void* value) {
     this->_idx++;
-    if(this->_idx >= this->_inner_list.length){
+    if(this->_idx >= this->_inner_list._len){
         list_append_ptr(&(this->_inner_list), value);
         return;
     }
