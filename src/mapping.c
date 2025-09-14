@@ -131,8 +131,8 @@ void map_free(map* this) {
 dict dict_create() {
     dict d;
     d._capacity = 16;
-    d.keys   = malloc(sizeof(str) * d._capacity);
-    d.values = malloc(sizeof(str) * d._capacity);
+    d.keys   = malloc(sizeof(char*) * d._capacity);
+    d.values = malloc(sizeof(char*) * d._capacity);
     for(int i = 0; i < d._capacity; i++){
         d.keys[i]   = NULL;
         d.values[i] = NULL;
@@ -229,8 +229,8 @@ void dict_remove(dict* this, char *key) {
  */
 void dict_expand(dict* this) {
     this->_capacity += 16;
-    this->keys   = realloc(this->keys, sizeof(str) * this->_capacity);
-    this->values = realloc(this->values, sizeof(str) * this->_capacity);
+    this->keys   = realloc(this->keys, sizeof(char*) * this->_capacity);
+    this->values = realloc(this->values, sizeof(char*) * this->_capacity);
     for(int i=this->_capacity - 16; i < this->_capacity; i++){
         this->keys[i]   = NULL;
         this->values[i] = NULL;
