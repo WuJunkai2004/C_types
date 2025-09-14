@@ -4,30 +4,19 @@
 #define STRING_EXTRA_LIMIT 128
 #define STRING_SHORT_STD   8
 
-#define str_new(len) malloc(len)
-
-#define str(x) ({(x).data;})
-
 typedef struct{
     int size;
-    char *data;
-} string_t;
+    char data[0];
+} str;
 
-string_t str_static(char*);
+str     str_create(int);
+void    str_destroy(str*);
+str     str_slice(char* , int, int);
 
-typedef struct{
-    const char *start;
-    int len;
-} str_view;
+char*   str_static(char*);
 
-#define VIEW_TAG "%.*s"
-#define VIEW_ARG(view) view.len, view.start
-
-str_view str_cut(char* , int, int);
-
-int compare_str_view(str_view, str_view);
-
-string_t view_to_str(str_view);
+#define STR_TAG "%.*s"
+#define STR_ARG(s) (s).size, (s).data
 
 #define string(s) ({_Generic((s),\
     int: ({char _s[256]; sprintf(_s, "%d", s); str_static(_s);}),\
@@ -36,8 +25,8 @@ string_t view_to_str(str_view);
     char*: str_static((char*)(long long)s)\
 );})
 
-int sort_as_str(const void*, const void*);
-int sort_as_string(const void*, const void*);
+int sort_as_str(const str*, const str*);
+int sort_as_string(const char*, const char*);
 
 
 #endif
