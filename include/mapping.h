@@ -41,13 +41,13 @@ typedef struct{
     char* *values;
 } dict;
 
-dict dict_create();
-dict dict_init_by(int, dict_pair*);
-void dict_set(dict*, char*, char*);
-char*  dict_get(dict*, str);
-void dict_remove(dict*, str);
-void dict_expand(dict*);
-void dict_free(dict*);
+dict  dict_create();
+dict  dict_init_by(int, dict_pair*);
+void  dict_set(dict*, char*, char*);
+char* dict_get(dict*, char*);
+void  dict_remove(dict*, char*);
+void  dict_expand(dict*);
+void  dict_free(dict*);
 #define dict_init(...) ({dict_pair _d[]={__VA_ARGS__}; dict_init_by(sizeof(_d)/sizeof(dict_pair), _d);})
 
 
