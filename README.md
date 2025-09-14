@@ -9,7 +9,7 @@ C_types 是一个为 C 语言提供的高级数据结构集合。它巧妙地利
 本项目提供了以下数据结构：
 
 * **List (动态数组):** (来自 `list.h`)
-    * `list_t` 结构体
+    * `list` 结构体
     * 类型安全的宏：`list_create(type)`, `list_append(l_ptr, value)`, `list_get(type, l_ptr, index)` 等。
 * **Stack (栈):** (来自 `container.h`)
     * `stack` 结构体

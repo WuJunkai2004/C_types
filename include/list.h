@@ -13,20 +13,20 @@ typedef struct{
     int _len;
     int _capacity;
     void* _data;
-} list_t;
+} list;
 
-list_t list_create_by(int);
-list_t list_init_by(int, int, void*);
-void    list_set_ptr(list_t*, int, void*);
-void*   list_get_ptr(list_t*, int);
-void    list_append_ptr(list_t*, void*);
-void    list_erase(list_t*, int);
-void    list_enlarge(list_t*);
-void    list_expand(list_t*, int);
-void    list_sort(list_t*, int(*)(const void*, const void*));
-void    list_reverse(list_t*);
-void    list_free(list_t*);
-int     list_size(list_t*);
+list list_create_by(int);
+list list_init_by(int, int, void*);
+void    list_set_ptr(list*, int, void*);
+void*   list_get_ptr(list*, int);
+void    list_append_ptr(list*, void*);
+void    list_erase(list*, int);
+void    list_enlarge(list*);
+void    list_expand(list*, int);
+void    list_sort(list*, int(*)(const void*, const void*));
+void    list_reverse(list*);
+void    list_free(list*);
+int     list_size(list*);
 #define list_create(type) ({list_create_by(sizeof(type));})
 #define list_init(values, ...) ({typeof(values) _l[]={values, ##__VA_ARGS__}; list_init_by(sizeof(values), sizeof(_l)/sizeof(values), _l);})
 #define list_get(type, l, index) ({*(type*)list_get_ptr((l), (index));})
