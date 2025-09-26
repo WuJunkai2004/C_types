@@ -1,8 +1,13 @@
 #ifndef __STR_HEADER__
 #define __STR_HEADER__
 
-#define STRING_EXTRA_LIMIT 128
-#define STRING_SHORT_STD   8
+#ifndef STRING_EXTRA_LIMIT
+  #define STRING_EXTRA_LIMIT 128
+#endif
+
+#ifndef STRING_SHORT_STD
+  #define STRING_SHORT_STD   8
+#endif
 
 typedef struct{
     int size;
